@@ -5,7 +5,7 @@
 	import StatusItem from './StatusHistory/StatusItem.svelte';
 	import equal from 'fast-deep-equal';
 	export let statusHistory = [];
-	export let expand = false;
+	export let expand = true;
 
 	let showHistory = true;
 

@@ -731,6 +731,7 @@
 									<div class="my-2 w-full" id={`${message.id}-embeds-${idx}`}>
 										<FullHeightIframe
 											src={embed}
+											initialHeight={typeof embed === 'string' && embed.includes('hermesPulse') ? 96 : null}
 											allowScripts={true}
 											allowForms={$settings?.iframeSandboxAllowForms ?? true}
 											allowSameOrigin={$settings?.iframeSandboxAllowSameOrigin ?? false}
