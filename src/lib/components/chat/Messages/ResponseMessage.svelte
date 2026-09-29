@@ -765,12 +765,14 @@
 										{:else if typeof embed === 'string'}
 											<FullHeightIframe
 												src={embed}
+												initialHeight={embed.includes('hermesPulse') ? 96 : null}
 												allowScripts={true}
 												allowForms={$settings?.iframeSandboxAllowForms ?? true}
 												allowSameOrigin={$settings?.iframeSandboxAllowSameOrigin ?? false}
 												allowPopups={true}
 											/>
 										{/if}
+
 									</div>
 								{/each}
 							</div>

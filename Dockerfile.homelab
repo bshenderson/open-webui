@@ -1,0 +1,9 @@
+# GXTD-248: fork source/backend + rebuilt frontend, pinned upstream dependencies.
+# Build frontend under Node 22 before docker build; do not copy mutable main assets.
+FROM ghcr.io/open-webui/open-webui@sha256:9591b13f13843c7721c2b8eaf7382846c81b3ffe126526d1888d1fed50c6a33f
+LABEL org.opencontainers.image.source="https://github.com/bshenderson/open-webui" \
+      homelab.upstream.revision="8bd8b4fac5e059578ac0c74b3c18d11139f88b7d" \
+      homelab.change="GXTD-248-source-progress-canary"
+RUN rm -rf /app/build /app/backend/open_webui
+COPY build/ /app/build/
+COPY backend/ /app/backend/
