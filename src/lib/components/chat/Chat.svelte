@@ -1584,14 +1584,21 @@
 				} else if (type === 'chat:message:embeds' || type === 'embeds') {
 					message.embeds = data.embeds;
 
-					// Auto-scroll to the embed once it's rendered in the DOM
-					await tick();
-					setTimeout(() => {
-						const embedEl = document.getElementById(`${event.message_id}-embeds-container`);
-						if (embedEl) {
-							embedEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-						}
-					}, 100);
+					// GXTD-726: passive Hermes progress replacements must never steal
+					// the reader's viewport, including on their first update.
+					const passiveProgress = data.embeds?.some(
+						(embed) => typeof embed === 'string' && embed.includes('hermesPulse')
+					);
+					if (!passiveProgress) {
+						// Auto-scroll to the embed once it's rendered in the DOM
+						await tick();
+						setTimeout(() => {
+							const embedEl = document.getElementById(`${event.message_id}-embeds-container`);
+							if (embedEl) {
+								embedEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+							}
+						}, 100);
+					}
 				} else if (type === 'chat:message:error') {
 					const responseCompleted = message.done;
 					if (event.shared) {
