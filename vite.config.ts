@@ -38,7 +38,8 @@ export default defineConfig({
 	},
 	build: {
 		target: 'es2022',
-		sourcemap: true
+		// GXTD-817: omit debugging maps to keep the managed frontend build within 7GiB.
+		sourcemap: false
 	},
 	optimizeDeps: {
 		esbuildOptions: { target: 'es2022' }
