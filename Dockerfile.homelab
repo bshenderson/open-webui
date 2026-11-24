@@ -1,0 +1,7 @@
+# GXTD-878: exact upstream dependencies/backend with the rebuilt managed UI.
+FROM ghcr.io/open-webui/open-webui@sha256:d5168bfbc28609eff5bea1b438dd864cf64d185cf6582c02244865e18385b901
+LABEL org.opencontainers.image.source="https://github.com/bshenderson/open-webui" \
+      homelab.upstream.revision="0666e59d26a4d056e0bacee41742486badd71cf8" \
+      homelab.change="GXTD-878-candidate-v0.13.4"
+RUN rm -rf /app/build
+COPY build/ /app/build/

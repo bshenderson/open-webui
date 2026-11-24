@@ -1945,6 +1945,11 @@
 				} else if (type === 'chat:message:embeds' || type === 'embeds') {
 					message.embeds = data.embeds;
 
+					// Passive progress must not steal the reader's viewport.
+					const passiveProgress = data.embeds?.some(
+						(embed) => typeof embed === 'string' && embed.includes('hermesPulse')
+					);
+					if (!passiveProgress) {
 					// Auto-scroll to the embed once it's rendered in the DOM
 					await tick();
 					setTimeout(() => {
@@ -1953,6 +1958,7 @@
 							embedEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
 						}
 					}, 100);
+					}
 				} else if (type === 'chat:message:error') {
 					const responseCompleted = message.done;
 					if (event.shared) {

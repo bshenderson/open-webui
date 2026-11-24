@@ -46,7 +46,8 @@ export default defineConfig({
 	},
 	build: {
 		target: 'es2022',
-		sourcemap: true
+		// Preserve the managed 7GiB build boundary.
+		sourcemap: false
 	},
 	optimizeDeps: {
 		esbuildOptions: { target: 'es2022' }
